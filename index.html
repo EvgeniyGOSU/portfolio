@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Scanner Bot | DevOps портфолио</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="badge">☁️ DevOps / Backend Pet Project</div>
+            <h1>Weather Scanner Bot</h1>
+            <p class="subtitle">Telegram-бот для погоды с полным CI/CD пайплайном, деплоем в Kubernetes и мониторингом Prometheus + Grafana</p>
+        </div>
+
+        <!-- Краткая информация -->
+        <div class="grid">
+            <div class="card">
+                <div class="card-icon">🤖</div>
+                <h3>Telegram бот</h3>
+                <p>Go 1.23, Telegram Bot API, WeatherAPI. Команды /start и /weather с ответом о погоде в любом городе.</p>
+                <div class="tech-stack">
+                    <span class="tech">Go</span>
+                    <span class="tech">REST API</span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon">🐳</div>
+                <h3>Контейнеризация</h3>
+                <p>Multi-stage Dockerfile, образ 9MB, приватный GitLab Container Registry.</p>
+                <div class="tech-stack">
+                    <span class="tech">Docker</span>
+                    <span class="tech">GitLab Registry</span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon">☸️</div>
+                <h3>Оркестрация K8s</h3>
+                <p>K3s-кластер: Deployment, Service, ConfigMap, Secrets, Sidecar-контейнер.</p>
+                <div class="tech-stack">
+                    <span class="tech">K3s</span>
+                    <span class="tech">Kubernetes</span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon">🔄</div>
+                <h3>CI/CD GitLab</h3>
+                <p>Три стадии: test → build → deploy. При каждом git push бот обновляется автоматически.</p>
+                <div class="tech-stack">
+                    <span class="tech">GitLab CI/CD</span>
+                    <span class="tech">GitLab Runner (K8s executor)</span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon">🔐</div>
+                <h3>Обход блокировок</h3>
+                <p>Hysteria2 sidecar-контейнер с SOCKS5-прокси. Трафик идёт через VPS в Нидерландах.</p>
+                <div class="tech-stack">
+                    <span class="tech">Hysteria2</span>
+                    <span class="tech">SOCKS5</span>
+                    <span class="tech">TLS/QUIC</span>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-icon">📊</div>
+                <h3>Мониторинг</h3>
+                <p>Prometheus собирает метрики (запросы, ошибки, latency), Grafana визуализирует.</p>
+                <div class="tech-stack">
+                    <span class="tech">Prometheus</span>
+                    <span class="tech">Grafana</span>
+                    <span class="tech">ServiceMonitor</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Архитектура -->
+        <div class="architecture">
+            <h2 style="margin-bottom: 1rem;">🏗️ Архитектура проекта</h2>
+            <pre style="font-family: monospace; font-size: 0.7rem; line-height: 1.4;">
+┌────────────────────────────────────────────────────────────────────┐
+│              Linux Mint / Ubuntu VM (192.168.0.199)                │
+│ ┌─────────────────────────────────────────────────────────────┐    │
+│ │         Docker: GitLab (web, registry:5050, runner)         │    │
+│ └───────────────────────────┬─────────────────────────────────┘    │
+│                             │                                      │
+│ ┌───────────────────────────┼─────────────────────────────────┐    │
+│ │  Kubernetes (K3s)         │                                 │    │
+│ │  ┌──────────────┐         │         ┌────────────────────┐  │    │
+│ │  │GitLab Runner │         │         │  Pod: weather-bot  │  │    │
+│ │  └──────┬───────┘         │         │ ┌──────┐ ┌────────┐│  │    │
+│ │         │ git push        │         │ │ bot  │ │hysteria││  │    │
+│ │         ↓                 │         │ │:8080 │ │:1080   ││  │    │
+│ │  ┌──────────────┐         │         │ │:9090 │ │SOCKS5  ││  │    │
+│ │  │ CI/CD        │─────────┼────────→│ └──┬───┘ └────┬───┘│  │    │
+│ │  │ (test,build, │ deploy  │         └────┼──────┼───┘    │  │    │
+│ │  │  deploy)     │         │              │      │        │  │    │
+│ │  └──────────────┘         │              ↓      ↓        │  │    │
+│ │                           │      socks5://localhost:1080 │  │    │
+│ │  ┌──────────────┐         │              │               │  │    │
+│ │  │  Prometheus  │←scrape──┼──────────────┘               │  │    │
+│ │  │  :9090       │         │                              │  │    │
+│ │  └──────┬───────┘         │                              │  │    │
+│ │         ↓                 │                              │  │    │
+│ │  ┌──────────────┐         │                              │  │    │
+│ │  │   Grafana    │←query───┼──────────────────────────────┘  │    │
+│ │  │   :30300     │                                           │    │
+│ │  └──────────────┘                                           │    │
+│ └─────────────────────────────────────────────────────────────┘    │
+└────────────────────────────────────────────────────────────────────┘
+                                    │
+                                    │ Hysteria2 (QUIC/HTTPS)
+                                    ↓
+                        ┌─────────────────────┐
+                        │   VPS (Нидерланды)  │
+                        │   gosuai.mooo.com   │
+                        └──────────┬──────────┘
+                                   ↓
+                        ┌─────────────────────┐
+                        │   Telegram API      │
+                        │   api.telegram.org  │
+                        └─────────────────────┘
+            </pre>
+        </div>
+
+        <!-- Cтатистика и ссылки -->
+        <div class="grid">
+            <div class="card">
+                <div class="card-icon">📈</div>
+                <h3>Метрики в Grafana</h3>
+                <ul>
+                    <li><code>weather_bot_requests_total</code> — количество команд</li>
+                    <li><code>weather_bot_errors_total</code> — ошибки API/формата</li>
+                    <li><code>weather_bot_request_duration_seconds</code> — время ответа</li>
+                    <li><code>weather_bot_active_users</code> — активные пользователи</li>
+                </ul>
+            </div>
+            <div class="card">
+                <div class="card-icon">⚙️</div>
+                <h3>GitLab CI/CD Pipeline</h3>
+                <ul>
+                    <li>✅ <strong>test</strong> — go mod download + go test</li>
+                    <li>✅ <strong>build</strong> — docker build + push в Registry</li>
+                    <li>✅ <strong>deploy</strong> — kubectl set image + rollout status</li>
+                </ul>
+                <p style="margin-top:0.5rem;">Весь процесс после <code>git push</code> занимает ~2 минуты.</p>
+            </div>
+        </div>
+
+        <div style="display: flex; justify-content: center; gap: 1rem; margin: 2rem 0;">
+            <a href="#" class="btn" target="_blank">📦 GitLab репозиторий</a>
+            <a href="#" class="btn btn-outline" target="_blank">📊 Grafana дашборд</a>
+        </div>
+
+        <div class="footer">
+            <p>Pet-проект 2026 | Технологии: Go, Docker, K3s, GitLab CI/CD, Hysteria2, Prometheus, Grafana</p>
+            <p>© Evgeniy Samsonov</p>
+        </div>
+    </div>
+</body>
+</html>

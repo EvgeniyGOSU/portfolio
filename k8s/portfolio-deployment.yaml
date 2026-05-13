@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portfolio
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: portfolio
+  template:
+    metadata:
+      labels:
+        app: portfolio
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:alpine
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: portfolio-html
+          mountPath: /usr/share/nginx/html
+      volumes:
+      - name: portfolio-html
+        configMap:
+          name: portfolio-files
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: portfolio
+  namespace: default
+spec:
+  selector:
+    app: portfolio
+  ports:
+  - port: 80
+    targetPort: 80
+    nodePort: 30080
+  type: NodePort
