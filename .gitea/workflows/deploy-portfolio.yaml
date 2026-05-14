@@ -1,0 +1,27 @@
+name: Deploy Portfolio
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    container:
+      image: bitnami/kubectl:latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup kubeconfig
+        run: |
+          mkdir -p /root/.kube
+          echo "${{ secrets.KUBECONFIG }}" > /root/.kube/config
+
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl delete configmap portfolio-files -n default --ignore-not-found=true
+          kubectl create configmap portfolio-files --from-file=index.html --from-file=css/style.css -n default
+          kubectl rollout restart deployment/portfolio -n default
+          kubectl rollout status deployment/portfolio -n default
