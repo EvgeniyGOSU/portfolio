@@ -21,7 +21,7 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          kubectl delete configmap portfolio-files -n default --ignore-not-found=true
-          kubectl create configmap portfolio-files --from-file=index.html --from-file=css/style.css -n default
-          kubectl rollout restart deployment/portfolio -n default
-          kubectl rollout status deployment/portfolio -n default
+          kubectl delete configmap portfolio-files -n portfolio --ignore-not-found=true
+          kubectl create configmap portfolio-files --from-file=index.html --from-file=css/style.css -n portfolio
+          kubectl rollout restart deployment/portfolio -n portfolio
+          kubectl rollout status deployment/portfolio -n portfolio
