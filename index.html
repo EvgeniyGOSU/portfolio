@@ -11,19 +11,17 @@
 </head>
 <body>
     <div class="container">
-        <!-- Шапка -->
         <div class="header">
             <div class="badge">☁️ DevOps / Backend Engineer</div>
             <h1>Evgeniy Samsonov</h1>
             <p class="subtitle">Создаю инфраструктуру, которая работает 24/7</p>
         </div>
 
-        <!-- О себе -->
         <div class="grid">
             <div class="card">
                 <div class="card-icon">🎯</div>
                 <h3>Обо мне</h3>
-                <p>Junior DevOps инженер с фокусом на Kubernetes, CI/CD и облачные технологии. Построил полностью рабочую production-инфраструктуру с нуля на домашнем оборудовании.</p>
+                <p>DevOps инженер с фокусом на Kubernetes, CI/CD и облачные технологии. Построил полностью рабочую production-инфраструктуру с нуля на домашнем оборудовании.</p>
             </div>
             <div class="card">
                 <div class="card-icon">🚀</div>
@@ -39,17 +37,16 @@
             </div>
         </div>
 
-        <!-- Архитектура проекта -->
         <div class="architecture">
-            <h2 style="margin-bottom: 1rem;">🏗️ Архитектура проекта</h2>
-            <pre style="font-family: monospace; font-size: 0.7rem; line-height: 1.4; text-align: left;">
+            <h2>🏗️ Архитектура проекта</h2>
+            <pre>
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                              🌍 Интернет                                   │
+│                              🌍 Интернет                                    │
 └─────────────────────────────────┬───────────────────────────────────────────┘
                                   │
                                   ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                         ☁️ VPS (Нидерланды)                                  │
+│                         ☁️ VPS (Нидерланды)                                 │
 │                         IP: 212.192.0.214                                   │
 │                    NGINX (прокси) + Certbot + WireGuard                     │
 └─────────────────────────────────┬───────────────────────────────────────────┘
@@ -57,51 +54,49 @@
                                   ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                         🏠 Домашний кластер (Kubespray)                     │
-│  ┌─────────────────────────────┐    ┌─────────────────────────────────────┐ │
-│  │     🖥️ Master Node           │    │          💻 Worker Node             | │
-│  │     2vCPU / 4GB RAM         │◄──►│          2vCPU / 8GB RAM            | │
-│  │                             │    │                                     │ │
-│  │  - Control Plane            │    │  - Weather Bot (Go + Hysteria2)     │ │
-│  │  - Gitea (Git + CI/CD)      │    │  - Gitea Runner                     │ │
-│  │  - cert-manager             │    │  - Local Registry (:30500)          │ │
-│  │                             │    │  - Grafana / Prometheus             │ │
-│  └─────────────────────────────┘    └─────────────────────────────────────┘ │
+│  ┌─────────────────────────────┐    ┌─────────────────────────────────────┐│
+│  │     🖥️ Master Node          │    │          💻 Worker Node              ││
+│  │     2vCPU / 4GB RAM         │◄──►│          2vCPU / 8GB RAM             ││
+│  │                             │    │                                     ││
+│  │  - Control Plane            │    │  - Weather Bot (Go + Hysteria2)     ││
+│  │  - Gitea (Git + CI/CD)      │    │  - Gitea Runner                     ││
+│  │  - cert-manager             │    │  - Local Registry (:30500)          ││
+│  │                             │    │  - Grafana / Prometheus             ││
+│  └─────────────────────────────┘    └─────────────────────────────────────┘│
 └─────────────────────────────────────────────────────────────────────────────┘
             </pre>
         </div>
 
-        <!-- Мониторинг -->
         <div class="architecture">
-            <h2 style="margin-bottom: 1rem;">📊 Мониторинг</h2>
-            <pre style="font-family: monospace; font-size: 0.7rem; line-height: 1.4; text-align: left;">
+            <h2>📊 Мониторинг</h2>
+            <pre>
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                         Prometheus + Grafana                                │
 │                                                                             │
-│  ┌─────────────────────────────┐    ┌─────────────────────────────────────┐ │
-│  │       Prometheus            │    │              Grafana                │ │
-│  │  - Сбор метрик из кластера  │───►│  - Визуализация метрик              │ │
-│  │  - Хранение временных рядов │    │  - Дашборды Kubernetes / бота       │ │
-│  │  - ServiceMonitor/PodMonitor│    │  - Алерты и уведомления             │ |
-│  └─────────────────────────────┘    └─────────────────────────────────────┘ │
+│  ┌─────────────────────────────┐    ┌─────────────────────────────────────┐│
+│  │       Prometheus            │    │              Grafana                ││
+│  │  - Сбор метрик из кластера  │───►│  - Визуализация метрик              ││
+│  │  - Хранение временных рядов │    │  - Дашборды Kubernetes / бота       ││
+│  │  - ServiceMonitor / PodMonitor│   │  - Алерты и уведомления             ││
+│  └─────────────────────────────┘    └─────────────────────────────────────┘│
 │                                                                             │
 │  📈 Кастомные метрики бота:                                                 │
-│     • weather_bot_requests_total      — запросы по командам                 │
-│     • weather_bot_errors_total        — ошибки API / формата                │
-│     • weather_bot_request_duration_seconds — время ответа                   │
-│     • weather_bot_active_users        — активные пользователи               │
+│     • weather_bot_requests_total       — запросы по командам                │
+│     • weather_bot_errors_total         — ошибки API / формата               │
+│     • weather_bot_request_duration_seconds — время ответа                  │
+│     • weather_bot_active_users         — активные пользователи              │
 │                                                                             │
-│  🏗️ Компоненты:                                                              │
-│     • kube-prometheus-stack — полный стек мониторинга Kubernetes            │
-│     • Grafana — визуализация                                                │
-│     • Prometheus — сбор метрик                                              │
+│  🏗️ Компоненты:                                                             │
+│     • kube-prometheus-stack — полный стек мониторинга Kubernetes           │
+│     • Grafana — визуализация                                               │
+│     • Prometheus — сбор метрик                                             │
 └─────────────────────────────────────────────────────────────────────────────┘
             </pre>
         </div>
 
-        <!-- CI/CD Pipeline -->
         <div class="architecture">
-            <h2 style="margin-bottom: 1rem;">⚙️ CI/CD Pipeline</h2>
-            <pre style="font-family: monospace; font-size: 0.7rem; line-height: 1.4; text-align: left;">
+            <h2>⚙️ CI/CD Pipeline</h2>
+            <pre>
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                           git push (main / test)                            │
 └─────────────────────────────────┬───────────────────────────────────────────┘
@@ -124,10 +119,9 @@
 │  └── kubectl rollout restart deployment/weather-bot                         │
 └─────────────────────────────────────────────────────────────────────────────┘
             </pre>
-            <p style="margin-top: 1rem;">⏱️ Весь процесс после <code>git push</code> занимает ~2 минуты</p>
+            <p class="note">⏱️ Весь процесс после <code>git push</code> занимает ~2 минуты</p>
         </div>
 
-        <!-- Технологии -->
         <div class="grid">
             <div class="card">
                 <div class="card-icon">☸️</div>
@@ -172,7 +166,6 @@
             </div>
         </div>
 
-        <!-- Бот и метрики -->
         <div class="grid">
             <div class="card">
                 <div class="card-icon">🤖</div>
@@ -196,10 +189,9 @@
             </div>
         </div>
 
-        <!-- Живые ссылки -->
         <div style="display: flex; justify-content: center; gap: 1rem; margin: 2rem 0; flex-wrap: wrap;">
             <a href="https://github.com/EvgeniyGOSU" class="btn" target="_blank">🐙 GitHub</a>
-            <a href="https://t.me/fav0r1te_ai" class="btn btn-outline" target="_blank">📱 Telegram</a>
+            <a href="https://t.me/evgeniysamsonov" class="btn btn-outline" target="_blank">📱 Telegram</a>
             <a href="https://git.gosu-devops.ru/gosu/devops" class="btn btn-outline" target="_blank">📦 Gitea</a>
             <a href="https://monitor.gosu-devops.ru" class="btn btn-outline" target="_blank">📊 Grafana</a>
         </div>
