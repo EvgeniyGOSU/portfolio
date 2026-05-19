@@ -3,30 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evgeniy Samsonov | DevOps инженер</title>
+    <title>Evgeniy Samsonov | DevOps портфолио</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
+        <!-- Шапка -->
         <div class="header">
             <div class="badge">☁️ DevOps / Backend Engineer</div>
             <h1>Evgeniy Samsonov</h1>
-            <p class="subtitle">Создаю отказоустойчивую инфраструктуру и автоматизирую всё, что можно автоматизировать</p>
+            <p class="subtitle">Создаю инфраструктуру, которая работает 24/7</p>
         </div>
 
+        <!-- О себе -->
         <div class="grid">
             <div class="card">
                 <div class="card-icon">🎯</div>
                 <h3>Обо мне</h3>
-                <p>DevOps инженер с опытом построения production-инфраструктуры с нуля. Специализируюсь на Kubernetes, CI/CD, облачных технологиях и автоматизации.</p>
+                <p>Junio DevOps инженер с фокусом на Kubernetes, CI/CD и облачные технологии. Построил полностью рабочую production-инфраструктуру с нуля на домашнем оборудовании.</p>
             </div>
             <div class="card">
                 <div class="card-icon">🚀</div>
                 <h3>Ключевой проект</h3>
-                <p>Telegram-бот погоды с полноценной инфраструктурой: Kubernetes кластер, CI/CD, мониторинг, HTTPS и доступ из интернета через WireGuard.</p>
+                <p>Telegram-бот погоды с полноценным CI/CD, деплоем в Kubernetes, мониторингом и доступом из интернета через WireGuard + HTTPS.</p>
                 <div class="tech-stack">
                     <span class="tech">Go</span>
                     <span class="tech">Kubernetes</span>
@@ -37,6 +39,7 @@
             </div>
         </div>
 
+        <!-- Архитектура (текстовая схема) -->
         <div class="architecture">
             <h2 style="margin-bottom: 1rem;">🏗️ Архитектура проекта</h2>
             <pre style="font-family: monospace; font-size: 0.7rem; line-height: 1.4; text-align: left;">
@@ -46,7 +49,7 @@
                                 │
                                 ▼
 ┌─────────────────────────────────────────────────────────────────────┐
-│              VPS (Нидерланды) — публичный IP 212.192.0.214          │
+│              VPS (Нидерланды) — 212.192.0.214                       │
 │              NGINX (прокси) + WireGuard + Certbot                   │
 └───────────────────────────────┬─────────────────────────────────────┘
                                 │ WireGuard VPN
@@ -66,70 +69,106 @@
             </pre>
         </div>
 
+        <!-- Технологии -->
         <div class="grid">
             <div class="card">
                 <div class="card-icon">☸️</div>
                 <h3>Инфраструктура</h3>
                 <ul>
-                    <li>Kubernetes (Kubespray)</li>
-                    <li>Flannel CNI</li>
-                    <li>Helm</li>
-                    <li>cert-manager</li>
+                    <li><strong>Kubernetes (Kubespray)</strong> — развёртывание кластера</li>
+                    <li><strong>Flannel CNI</strong> — сетевая подсистема</li>
+                    <li><strong>Helm</strong> — управление пакетами</li>
+                    <li><strong>cert-manager</strong> — SSL сертификаты</li>
+                    <li><strong>Local Registry</strong> — приватное хранилище образов</li>
                 </ul>
             </div>
             <div class="card">
                 <div class="card-icon">🔄</div>
                 <h3>CI/CD</h3>
                 <ul>
-                    <li>Gitea Actions</li>
-                    <li>Gitea Runner (K8s executor)</li>
-                    <li>Автоматический деплой</li>
+                    <li><strong>Gitea Actions</strong> — CI/CD пайплайны</li>
+                    <li><strong>Gitea Runner (K8s executor)</strong> — выполнение задач</li>
+                    <li><strong>Автоматический деплой</strong> при git push</li>
+                    <li><strong>GitOps</strong> — всё в репозитории</li>
                 </ul>
             </div>
             <div class="card">
                 <div class="card-icon">🔐</div>
                 <h3>Сеть и безопасность</h3>
                 <ul>
-                    <li>WireGuard VPN</li>
-                    <li>Hysteria2 прокси</li>
-                    <li>Let's Encrypt SSL</li>
-                    <li>NGIN reverse proxy</li>
+                    <li><strong>WireGuard VPN</strong> — туннель VPS → кластер</li>
+                    <li><strong>Hysteria2 прокси</strong> — обход блокировок</li>
+                    <li><strong>Let's Encrypt SSL</strong> — HTTPS сертификаты</li>
+                    <li><strong>NGINX reverse proxy</strong> — единая точка входа</li>
                 </ul>
             </div>
             <div class="card">
                 <div class="card-icon">📊</div>
                 <h3>Мониторинг</h3>
                 <ul>
-                    <li>Prometheus</li>
-                    <li>Grafana</li>
-                    <li>Кастомные метрики бота</li>
+                    <li><strong>Prometheus</strong> — сбор метрик</li>
+                    <li><strong>Grafana</strong> — визуализация</li>
+                    <li><strong>Кастомные метрики бота</strong> — requests, errors, latency</li>
+                    <li><strong>kube-prometheus-stack</strong> — мониторинг кластера</li>
                 </ul>
             </div>
         </div>
 
+        <!-- Бот и метрики -->
         <div class="grid">
+            <div class="card">
+                <div class="card-icon">🤖</div>
+                <h3>Weather Bot</h3>
+                <ul>
+                    <li><strong>Go 1.23</strong> — высокопроизводительный бот</li>
+                    <li><strong>Telegram Bot API</strong> — интеграция с Telegram</li>
+                    <li><strong>WeatherAPI</strong> — данные о погоде</li>
+                    <li><strong>Hysteria2 sidecar</strong> — обход блокировок</li>
+                </ul>
+            </div>
             <div class="card">
                 <div class="card-icon">📈</div>
                 <h3>Метрики в Grafana</h3>
                 <ul>
                     <li><code>weather_bot_requests_total</code> — запросы по командам</li>
-                    <li><code>weather_bot_errors_total</code> — ошибки API</li>
+                    <li><code>weather_bot_errors_total</code> — ошибки API/формата</li>
                     <li><code>weather_bot_request_duration_seconds</code> — время ответа</li>
+                    <li><code>weather_bot_active_users</code> — активные пользователи</li>
                 </ul>
-            </div>
-            <div class="card">
-                <div class="card-icon">⚙️</div>
-                <h3>CI/CD Pipeline</h3>
-                <ul>
-                    <li>✅ test — go test</li>
-                    <li>✅ build — docker build + push</li>
-                    <li>✅ deploy — kubectl apply + rollout</li>
-                </ul>
-                <p style="margin-top:0.5rem;">Весь процесс после <code>git push</code> занимает ~2 минуты.</p>
             </div>
         </div>
 
-        <div style="display: flex; justify-content: center; gap: 1rem; margin: 2rem 0;">
+        <!-- CI/CD Pipeline -->
+        <div class="architecture">
+            <h2 style="margin-bottom: 1rem;">⚙️ CI/CD Pipeline</h2>
+            <pre style="font-family: monospace; font-size: 0.7rem; line-height: 1.4; text-align: left;">
+┌─────────────────────────────────────────────────────────────────────────┐
+│                            git push (main/test)                         │
+└───────────────────────────────────┬─────────────────────────────────────┘
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│  Stage 1: test                                                          │
+│  ├── go mod download                                                    │
+│  └── go test -v ./...                                                   │
+└───────────────────────────────────┬─────────────────────────────────────┘
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│  Stage 2: build                                                         │
+│  ├── docker build -t weather-bot:latest                                 │
+│  └── docker push 192.168.181.134:30500/weather-bot:latest               │
+└───────────────────────────────────┬─────────────────────────────────────┘
+                                    ▼
+┌─────────────────────────────────────────────────────────────────────────┐
+│  Stage 3: deploy                                                        │
+│  ├── kubectl apply -f k8s/                                              │
+│  └── kubectl rollout restart deployment/weather-bot                     │
+└─────────────────────────────────────────────────────────────────────────┘
+            </pre>
+            <p style="margin-top: 1rem;">Весь процесс после <code>git push</code> занимает ~2 минуты</p>
+        </div>
+
+        <!-- Живые ссылки -->
+        <div style="display: flex; justify-content: center; gap: 1rem; margin: 2rem 0; flex-wrap: wrap;">
             <a href="https://github.com/EvgeniyGOSU" class="btn" target="_blank">🐙 GitHub</a>
             <a href="https://t.me/fav0r1te_ai" class="btn btn-outline" target="_blank">📱 Telegram</a>
             <a href="https://git.gosu-devops.ru/gosu/devops" class="btn btn-outline" target="_blank">📦 Gitea</a>

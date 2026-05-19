@@ -3,10 +3,16 @@ kind: Ingress
 metadata:
   name: portfolio-ingress
   namespace: portfolio
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: nginx
+  tls:
+  - hosts:
+    - gosu-devops.ru
+    secretName: gosu-devops-ru-tls
   rules:
-  - host: evgeniy.ru
+  - host: gosu-devops.ru
     http:
       paths:
       - path: /

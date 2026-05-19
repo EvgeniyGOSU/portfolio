@@ -3,10 +3,16 @@ kind: Ingress
 metadata:
   name: grafana-ingress
   namespace: monitoring
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   ingressClassName: nginx
+  tls:
+  - hosts:
+    - monitor.gosu-devops.ru
+    secretName: monitor-gosu-devops-ru-tls
   rules:
-  - host: monitor.evgeniy.ru
+  - host: monitor.gosu-devops.ru
     http:
       paths:
       - path: /
