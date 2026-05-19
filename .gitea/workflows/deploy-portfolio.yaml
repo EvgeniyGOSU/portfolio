@@ -29,7 +29,7 @@ jobs:
         run: |
           kubectl create configmap portfolio-files \
             --from-file=index.html \
-            --from-file=css/style.css \
+            --from-file=style.css \
             -n portfolio --dry-run -o yaml | kubectl apply -f -
           kubectl rollout restart deployment/portfolio -n portfolio
           kubectl rollout status deployment/portfolio -n portfolio
