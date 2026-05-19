@@ -61,41 +61,37 @@
 │  │  - Control Plane            │    │  - Weather Bot (Go + Hysteria2)     ││
 │  │  - Gitea (Git + CI/CD)      │    │  - Gitea Runner                     ││
 │  │  - cert-manager             │    │  - Local Registry (:30500)          ││
-│  │                             │    │  - Grafana / Prometheus             ││
+│  │  - Argo CD (GitOps)         │    │  - Grafana / Prometheus             ││
 │  └─────────────────────────────┘    └─────────────────────────────────────┘│
 └────────────────────────────────────────────────────────────────────────────┘
             </pre>
         </div>
 
         <div class="architecture">
-            <h2>📊 Мониторинг</h2>
+            <h2>🤖 Infrastructure as Code (Ansible)</h2>
             <pre>
-┌────────────────────────────────────────────────────────────────────────────┐
-│                         Prometheus + Grafana                               │
-│                                                                            │
-│  ┌─────────────────────────────┐    ┌─────────────────────────────────────┐│
-│  │       Prometheus            │    │              Grafana                ││
-│  │  - Сбор метрик из кластера  │───►│  - Визуализация метрик              ││
-│  │  - Хранение временных рядов │    │  - Дашборды Kubernetes / бота       ││
-│  │  - ServiceMonitor/PodMonitor│    │  - Алерты и уведомления             ││
-│  └─────────────────────────────┘    └─────────────────────────────────────┘│
-│                                                                            │
-│  📈 Кастомные метрики бота:                                                │
-│     • weather_bot_requests_total       — запросы по командам               │
-│     • weather_bot_errors_total         — ошибки API / формата              │
-│     • weather_bot_request_duration_seconds — время ответа                  │
-│     • weather_bot_active_users         — активные пользователи             │
-│                                                                            │
-│  🏗️ Компоненты:                                                            │
-│     • kube-prometheus-stack — полный стек мониторинга Kubernetes           │
-│     • Grafana — визуализация                                               │
-│     • Prometheus — сбор метрик                                             │
-└────────────────────────────────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         Ansible Automation                                  │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  Kubespray (набор Ansible-плейбуков)                                │   │
+│  │  └── Развертывание production-кластера Kubernetes с нуля            │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+│  ┌─────────────────────────────────────────────────────────────────────┐   │
+│  │  Собственные Ansible-роли                                           │   │
+│  │  ├── docker         — настройка insecure registry                   │   │
+│  │  ├── containerd     — конфигурация containerd                       │   │
+│  │  └── gitea-runner   — установка и регистрация раннера               │   │
+│  └─────────────────────────────────────────────────────────────────────┘   │
+│                                                                             │
+│  🎯 Идемпотентность — можно запускать много раз без побочных эффектов      │
+└─────────────────────────────────────────────────────────────────────────────┘
             </pre>
         </div>
 
         <div class="architecture">
-            <h2>⚙️ CI/CD Pipeline</h2>
+            <h2>⚙️ CI/CD Pipeline (Gitea Actions)</h2>
             <pre>
 ┌─────────────────────────────────────────────────────────────────────────────┐
 │                           git push (main / test)                            │
@@ -122,6 +118,28 @@
             <p class="note">⏱️ Весь процесс после <code>git push</code> занимает ~2 минуты</p>
         </div>
 
+        <div class="architecture">
+            <h2>📊 Мониторинг (Prometheus + Grafana)</h2>
+            <pre>
+┌────────────────────────────────────────────────────────────────────────────┐
+│                         Prometheus + Grafana                               │
+│                                                                            │
+│  ┌─────────────────────────────┐    ┌─────────────────────────────────────┐│
+│  │       Prometheus            │    │              Grafana                ││
+│  │  - Сбор метрик из кластера  │───►│  - Визуализация метрик              ││
+│  │  - Хранение временных рядов │    │  - Дашборды Kubernetes / бота       ││
+│  │  - ServiceMonitor/PodMonitor│    │  - Алерты и уведомления             ││
+│  └─────────────────────────────┘    └─────────────────────────────────────┘│
+│                                                                            │
+│  📈 Кастомные метрики бота:                                                │
+│     • weather_bot_requests_total       — запросы по командам               │
+│     • weather_bot_errors_total         — ошибки API / формата              │
+│     • weather_bot_request_duration_seconds — время ответа                  │
+│     • weather_bot_active_users         — активные пользователи             │
+└────────────────────────────────────────────────────────────────────────────┘
+            </pre>
+        </div>
+
         <div class="grid">
             <div class="card">
                 <div class="card-icon">☸️</div>
@@ -132,6 +150,8 @@
                     <li><strong>Helm</strong> — управление пакетами</li>
                     <li><strong>cert-manager</strong> — SSL сертификаты</li>
                     <li><strong>Local Registry</strong> — приватное хранилище образов</li>
+                    <li><strong>Ansible</strong> — IaC, автоматизация настройки</li>
+                    <li><strong>Argo CD</strong> — GitOps, синхронизация кластера</li>
                 </ul>
             </div>
             <div class="card">
@@ -197,7 +217,7 @@
         </div>
 
         <div class="footer">
-            <p>☁️ Production-инфраструктура на Kubernetes | 2-node кластер | WireGuard + HTTPS</p>
+            <p>☁️ Production-инфраструктура на Kubernetes | 2-node кластер | WireGuard + HTTPS | GitOps (Argo CD)</p>
             <p>© Evgeniy Samsonov — 2026</p>
         </div>
     </div>
