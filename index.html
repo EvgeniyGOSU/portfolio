@@ -21,7 +21,7 @@
             <div class="card">
                 <div class="card-icon">🎯</div>
                 <h3>Обо мне</h3>
-                <p>DevOps инженер с фокусом на Kubernetes, CI/CD и облачные технологии. Построил полностью рабочую production-инфраструктуру с нуля на домашнем оборудовании.</p>
+                <p>Junior DevOps инженер с фокусом на Kubernetes, CI/CD и облачные технологии. Построил полностью рабочую production-инфраструктуру с нуля на домашнем оборудовании.</p>
             </div>
             <div class="card">
                 <div class="card-icon">🚀</div>
@@ -46,51 +46,51 @@
                                   │
                                   ▼
 ┌─────────────────────────────────────────────────────────────────────────────┐
-│                         ☁️ VPS (Нидерланды)                                 │
+│                         ☁️ VPS (Нидерланды)                                  │
 │                         IP: 212.192.0.214                                   │
 │                    NGINX (прокси) + Certbot + WireGuard                     │
 └─────────────────────────────────┬───────────────────────────────────────────┘
                                   │ WireGuard VPN
                                   ▼
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                         🏠 Домашний кластер (Kubespray)                     │
+┌────────────────────────────────────────────────────────────────────────────┐
+│                         🏠 Домашний кластер (Kubespray)                    │
 │  ┌─────────────────────────────┐    ┌─────────────────────────────────────┐│
-│  │     🖥️ Master Node          │    │          💻 Worker Node              ││
-│  │     2vCPU / 4GB RAM         │◄──►│          2vCPU / 8GB RAM             ││
+│  │     🖥️ Master Node           │    │          💻 Worker Node             ││
+│  │     2vCPU / 4GB RAM         │◄──►│          2vCPU / 8GB RAM            ││
 │  │                             │    │                                     ││
 │  │  - Control Plane            │    │  - Weather Bot (Go + Hysteria2)     ││
 │  │  - Gitea (Git + CI/CD)      │    │  - Gitea Runner                     ││
 │  │  - cert-manager             │    │  - Local Registry (:30500)          ││
 │  │                             │    │  - Grafana / Prometheus             ││
 │  └─────────────────────────────┘    └─────────────────────────────────────┘│
-└─────────────────────────────────────────────────────────────────────────────┘
+└────────────────────────────────────────────────────────────────────────────┘
             </pre>
         </div>
 
         <div class="architecture">
             <h2>📊 Мониторинг</h2>
             <pre>
-┌─────────────────────────────────────────────────────────────────────────────┐
-│                         Prometheus + Grafana                                │
-│                                                                             │
+┌────────────────────────────────────────────────────────────────────────────┐
+│                         Prometheus + Grafana                               │
+│                                                                            │
 │  ┌─────────────────────────────┐    ┌─────────────────────────────────────┐│
 │  │       Prometheus            │    │              Grafana                ││
 │  │  - Сбор метрик из кластера  │───►│  - Визуализация метрик              ││
 │  │  - Хранение временных рядов │    │  - Дашборды Kubernetes / бота       ││
-│  │  - ServiceMonitor / PodMonitor│   │  - Алерты и уведомления             ││
+│  │  - ServiceMonitor/PodMonitor│    │  - Алерты и уведомления             ││
 │  └─────────────────────────────┘    └─────────────────────────────────────┘│
-│                                                                             │
-│  📈 Кастомные метрики бота:                                                 │
-│     • weather_bot_requests_total       — запросы по командам                │
-│     • weather_bot_errors_total         — ошибки API / формата               │
+│                                                                            │
+│  📈 Кастомные метрики бота:                                                │
+│     • weather_bot_requests_total       — запросы по командам               │
+│     • weather_bot_errors_total         — ошибки API / формата              │
 │     • weather_bot_request_duration_seconds — время ответа                  │
-│     • weather_bot_active_users         — активные пользователи              │
-│                                                                             │
+│     • weather_bot_active_users         — активные пользователи             │
+│                                                                            │
 │  🏗️ Компоненты:                                                             │
 │     • kube-prometheus-stack — полный стек мониторинга Kubernetes           │
 │     • Grafana — визуализация                                               │
 │     • Prometheus — сбор метрик                                             │
-└─────────────────────────────────────────────────────────────────────────────┘
+└────────────────────────────────────────────────────────────────────────────┘
             </pre>
         </div>
 
@@ -191,7 +191,7 @@
 
         <div style="display: flex; justify-content: center; gap: 1rem; margin: 2rem 0; flex-wrap: wrap;">
             <a href="https://github.com/EvgeniyGOSU" class="btn" target="_blank">🐙 GitHub</a>
-            <a href="https://t.me/evgeniysamsonov" class="btn btn-outline" target="_blank">📱 Telegram</a>
+            <a href="https://t.me/fav0r1te_ai" class="btn btn-outline" target="_blank">📱 Telegram</a>
             <a href="https://git.gosu-devops.ru/gosu/devops" class="btn btn-outline" target="_blank">📦 Gitea</a>
             <a href="https://monitor.gosu-devops.ru" class="btn btn-outline" target="_blank">📊 Grafana</a>
         </div>
