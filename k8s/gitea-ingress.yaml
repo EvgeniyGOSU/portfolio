@@ -4,13 +4,12 @@ metadata:
   name: gitea-ingress
   namespace: gitea
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/proxy-body-size: "100m"
 spec:
   ingressClassName: nginx
-  tls:
-  - hosts:
-    - git.gosu-devops.ru
-    secretName: git-gosu-devops-ru-tls
   rules:
   - host: git.gosu-devops.ru
     http:

@@ -1,0 +1,82 @@
+replicas: 1
+
+# Базовые настройки
+image:
+  repository: grafana/grafana
+  tag: "10.4.0"
+  pullPolicy: IfNotPresent
+
+# Сервис - используем ClusterIP (Ingress будет сам)
+service:
+  type: ClusterIP
+  port: 80
+  targetPort: 3000
+
+# Включение Ingress
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  hosts:
+    - monitor.gosu-devops.ru
+  pathType: Prefix
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
+
+# Без сохранения данных на PVC (для упрощения)
+persistence:
+  enabled: false
+
+# Настройка источников данных через config
+datasources:
+  datasources.yaml:
+    apiVersion: 1
+    datasources:
+      - name: Prometheus
+        type: prometheus
+        url: http://monitoring-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090
+        access: proxy
+        isDefault: true
+        jsonData:
+          timeInterval: "15s"
+
+# Настройка дашбордов
+dashboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+      - name: default
+        orgId: 1
+        folder: ""
+        type: file
+        disableDeletion: false
+        editable: true
+        options:
+          path: /var/lib/grafana/dashboards/default
+
+dashboards:
+  default:
+    dummy:
+      gnetId: 0
+      revision: 0
+      datasource: Prometheus
+
+# Администрирование
+admin:
+  existingSecret: ""
+  userKey: admin-user
+  passwordKey: admin-password
+
+# Настройка прав доступа
+securityContext:
+  runAsUser: 472
+  runAsGroup: 472
+  fsGroup: 472
+
+# Плагины
+plugins:
+  - grafana-piechart-panel
+
+env:
+  GF_SERVER_ROOT_URL: "https://monitor.gosu-devops.ru"
